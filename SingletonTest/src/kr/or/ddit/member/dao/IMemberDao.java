@@ -1,8 +1,10 @@
 package kr.or.ddit.member.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import kr.or.ddit.member.vo.MemberVO;
+import kr.or.ddit.util.JDBCUtil3;
 
 // Dao - Data access object : 데이터 전담
 /*
@@ -45,4 +47,13 @@ public interface IMemberDao {
 	 	전체 회원정보를 담은 리스트
 	 */
 	public List<MemberVO> selectAll();
+	
+	/*
+	 	회원 정보를 검색하기 위한 메서드
+	 	검색할 회원 정보를 담은 MemberVo 객체
+	 	검색된 회원 정보를 담은 List 객체
+	 	검색 조건 담는 param 있어야 됨 => searchMember(검색조건)
+	 */
+	public List<MemberVO> searchMember(MemberVO mv);
+	
 }

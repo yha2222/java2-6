@@ -167,5 +167,72 @@ public class MemberDaoImpl implements IMemberDao {
 		
 		return memList;
 	}
+
+
+	@Override
+	public List<MemberVO> searchMember(MemberVO praramMv) {
+		
+		List<MemberVO> memList = new ArrayList<MemberVO>();
+		
+		try {
+			
+			conn = JDBCUtil3.getConnection();
+			
+			String sql = "select * from mymember where 1=1";
+			
+			// dynamic query
+			if(praramMv.getMemId() != null && !praramMv.getMemId().equals("")) { // 사용자가 분명히 입력함
+				sql += " and mem_id = ? ";
+			}
+			if(praramMv.getMemName() != null && !praramMv.getMemName().equals("")) {
+				sql += " and mem_name = ? ";
+			}
+			if(praramMv.getMemTel() != null && !praramMv.getMemTel().equals("")) {
+				sql += " and mem_tel = ? ";
+			}
+			if(praramMv.getMemAddr() != null && !praramMv.getMemAddr().equals("")) {
+				sql += " and mem_addr like '%' || ? || '%'";
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			int index = 1; // ? 위치는 1부터 시작함
+			
+			if(praramMv.getMemId() != null && !praramMv.getMemId().equals("")) { // 사용자가 분명히 입력함
+				pstmt.setString(index++, praramMv.getMemId());
+			}
+			if(praramMv.getMemName() != null && !praramMv.getMemName().equals("")) {
+				pstmt.setString(index++, praramMv.getMemName());
+			}
+			if(praramMv.getMemTel() != null && !praramMv.getMemTel().equals("")) {
+				pstmt.setString(index++, praramMv.getMemTel());
+			}
+			if(praramMv.getMemAddr() != null && !praramMv.getMemAddr().equals("")) {
+				pstmt.setString(index++, praramMv.getMemAddr());
+			}
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				String memId = rs.getString("mem_id");
+				String memName = rs.getString("mem_name");
+				String memTel = rs.getString("mem_tel");
+				String memAddr = rs.getString("mem_addr");
+				Date regDt = rs.getTimestamp("reg_dt");
+				
+				MemberVO mv = new MemberVO(memId, memName, memTel, memAddr);
+				mv.setRegDt(regDt);
+				
+				memList.add(mv);
+			}
+			
+			
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+		}finally {
+			JDBCUtil3.close(conn, stmt, pstmt, rs);
+		}
+		return memList;
+	}
 	
 }

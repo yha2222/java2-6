@@ -52,7 +52,7 @@ public class MemberMain {
 	
 	public MemberMain() {
 		scan = new Scanner(System.in); 
-		memService = new MemberServiceImpl();
+		memService = MemberServiceImpl.getInstance();
 
 	}
 	

@@ -66,7 +66,8 @@ public class MemberMain {
 		System.out.println("  2. 자료 삭제");
 		System.out.println("  3. 자료 수정");
 		System.out.println("  4. 전체 자료 출력");
-		System.out.println("  5. 작업 끝.");
+		System.out.println("  5. 자료 검색");
+		System.out.println("  6. 작업 끝.");
 		System.out.println("----------------------");
 		System.out.print("원하는 작업 선택 >> ");
 	}
@@ -92,13 +93,63 @@ public class MemberMain {
 				case 4 :  // 전체 자료 출력
 					selectAll();
 					break;
-				case 5 :  // 작업 끝
+				case 5 :  // 자료 검색
+					serchMember();
+					break;
+				case 6 :  // 작업 끝
 					System.out.println("작업을 마칩니다.");
 					break;
 				default :
 					System.out.println("번호를 잘못 입력했습니다. 다시입력하세요");
 			}
-		}while(choice!=5);
+		}while(choice!=6);
+	}
+	
+	// 회원정보를 검색하기 위한 메서드
+	private void serchMember() {
+		/*
+		 	검색할 회원ID, 회원이름, 전화번호, 주소 등을 입력하면
+		 	입력한 정보만 사용하여 검색하는 기능을 구현하시오.
+		 	주소는 입력한 값이 포함만 되어도 검색되도록 함
+		 	입력하지 않을 데이터는 엔터키로 다음 입력으로 넘김
+		 */
+		scan.nextLine();  // 입력 버퍼 비우기
+		
+		System.out.println();
+		System.out.println("검색할 정보를 입력하세요");
+		System.out.println("회원ID >> ");
+		String memId = scan.nextLine().trim();  // 공백제거
+		
+		System.out.println("회원 이름 >> ");
+		String memName = scan.nextLine().trim(); 
+		
+		System.out.println("회원 전화번호 >> ");
+		String memTel = scan.nextLine().trim(); 
+		
+		System.out.println("회원 주소 >> ");
+		String memAddr = scan.nextLine().trim();
+		
+		MemberVO mv = new MemberVO(memId, memName, memTel, memAddr);
+		
+		List<MemberVO> memList = memService.searchMember(mv);
+		
+		System.out.println("----------------------------------------------");
+		System.out.println("ID\t생성일\t이 름\t전화번호\t\t주소");
+		System.out.println("----------------------------------------------");
+		
+		if(memList.size() == 0) {
+			System.out.println("회원정보 없음");
+		}else {
+			
+			for(MemberVO mv2 : memList) {
+				System.out.println(mv2.getMemId() + "\t" + mv2.getRegDtDisplay()
+				+ "\t" + mv2.getMemName() + "\t" + mv2.getMemTel()
+				+ "\t" + mv2.getMemAddr());
+			}
+			System.out.println("----------------------------------------------");
+			System.out.println("출력 작업 끝");
+		}
+		
 	}
 	
 	// 전체 회원자료를 출력하기 위한 메서드

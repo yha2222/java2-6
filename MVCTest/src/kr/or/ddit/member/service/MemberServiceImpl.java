@@ -17,7 +17,6 @@ public class MemberServiceImpl implements IMemberService {
 	
 	// 객체 생성 => 생성자
 	// 생성자를 private으로 선언, 객체가 new로 더이상 만들어지면 안되기 때문
-//	언니 사랑해 그래 나도 사랑해 내 마음 알지? 그럼 나도 알지 모를 수가 없어 맞아 모를 수가 없어 내가 매일매일 언니를 찾아오는데.... 알랍쀼오~~예~~예~~
 	private MemberServiceImpl() {
 		// 싱글톤패턴으로 만들어진 DAO의 객체를 memDao에 할당시켜줌(getInstance()의 리턴타입이 DAO의 객체(단하나))
 		memDao = MemberDaoImpl.getIntance();

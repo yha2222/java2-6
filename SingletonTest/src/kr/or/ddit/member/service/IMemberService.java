@@ -42,4 +42,13 @@ public interface IMemberService {
 	 	전체 회원정보를 담은 리스트
 	 */
 	public List<MemberVO> selectAll();
+	
+	/*
+ 	회원 정보를 검색하기 위한 메서드
+ 	검색할 회원 정보를 담은 MemberVo 객체
+ 	검색된 회원 정보를 담은 List 객체
+ 	검색 조건 담는 param 있어야 됨 => searchMember(검색조건)
+ */
+	public List<MemberVO> searchMember(MemberVO mv);
+
 }
