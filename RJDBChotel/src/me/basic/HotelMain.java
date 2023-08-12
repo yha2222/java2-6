@@ -94,21 +94,21 @@ public class HotelMain {
 			System.out.println();
 			System.out.println("어느 방을 체크아웃 하시겠습니까?");
 			System.out.println("방번호 입력 => ");
-			String rN = scan.next();
+			String roomNum = scan.next();
 			
 			try {
 				
 				conn = JDBCUtil.getConnection();
 				String sql = "delete from hotel_mng where ROOM_NUM = ?";
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, rN); //????????
+				pstmt.setString(1, roomNum); // 숫자 해당 순서에 변수 넣는다??
 				
 				int cnt = pstmt.executeUpdate();
 				
 				if(cnt > 0) {
-					System.out.println(rN + "체크아웃 성공!");
+					System.out.println(roomNum + "체크아웃 성공!");
 				}else {
-					System.out.println(rN + "체크아웃 실패!");
+					System.out.println(roomNum + "체크아웃 실패!");
 				}
 				
 			} catch (SQLException ex) {
