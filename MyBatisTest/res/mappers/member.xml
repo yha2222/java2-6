@@ -90,6 +90,7 @@ from mymember where mem_id = #{memId}
 	<result column="mem_addr" property="memAddr"/>
 	<result column="reg_dt" property="regDt"/>
 </resultMap>
+
 <select id="searchMember" resultMap="mm">
 
 select *

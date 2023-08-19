@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+
+<insert id="insertBoard">
+
+INSERT INTO JDBC_BOARD (
+	BOARD_NO,
+	BOARD_TITLE,
+	BOARD_WRITER,
+	BOARD_DATE,
+	BOARD_CONTENT
+	) VALUES
+	(#{brdNo}, #{brdTitle}, #{brdWriter}, sysdate, #{brdCont})
+
+</insert>
+
+<update id="updateBoard">
+UPDATE JDBC_BOARD
+SET BOARD_NO = #{brdNo},
+	BOARD_TITLE = #{brdTitle},
+	BOARD_WRITER = #{brdWriter},
+	BOARD_CONTENT = #{brdCont}
+WHERE BOARD_NO = #{brdNo}
+</update>
+
+<delete id="deleteBoard">
+delete from JDBC_BOARD
+where BOARD_NO = #{brdNo}
+</delete>
+
+<select id="selectAll" resultType="mvo">
+select BOARD_NO as brdNo,
+	   BOARD_TITLE as brdTitle,
+	   BOARD_WRITER as brdWriter,
+	   BOARD_CONTENT as brdCont
+from JDBC_BOARD
+</select>
+
+<select id="getBoard" parameterType="String" resultType="mvo">
+select BOARD_NO as brdNo,
+	   BOARD_TITLE as brdTitle,
+	   BOARD_WRITER as brdWriter,
+	   BOARD_CONTENT as brdCont
+from JDBC_BOARD
+where BOARD_NO = #{brdNo}
+</select>
+
+<select id="checkBoard" parameterType="String" resultType="int">
+select count(*) as cnt
+from JDBC_BOARD
+where brdNo = #{brdNo}
+</select>
+
+<resultMap type="me.board.vo.BoardVO" id="mm">
+	<result column="BOARD_NO" property="brdNo" />
+	<result column="BOARD_TITLE" property="brdTitle" />
+	<result column="BOARD_WRITER" property="brdWriter" />
+	<result column="BOARD_DATE" property="brdDt" />
+	<result column="BOARD_CONTENT" property="brdCont" />
+</resultMap>
+
+<select id="searchBoard" resultMap="mm">
+select *
+from JDBC_BOARD
+where 1=1
+<if test="brdNo != null and brdNo != ''">
+	and brdNo = #{brdNo}
+</if>
+<if test="brdTitle != null and brdTitle != ''">
+	and brdNo = #{brdTitle}
+</if>
+<if test="brdWriter != null and brdWriter != ''">
+	and brdNo = #{brdWriter}
+</if>
+<if test="brdCont != null and brdCont != ''">
+	and brdNo = #{brdCont}
+</if>
+</select>
+
+</mapper>
