@@ -102,7 +102,23 @@ public class BoardMain {
 	}
 
 	private void updateBoard() {
-		// TODO Auto-generated method stub
+		boolean isExist = false;
+		String brdNo = "";
+		
+		do {
+			System.out.println();
+			System.out.println("수정할 게시물 정보 입력@");
+			System.out.println("게시물 번호 >> ");
+			
+			brdNo = scan.next();
+			
+			isExist = brdService.checkBoard(brdNo);
+			
+			if(!isExist) {
+				System.out.println("게시물 번호가 " + brdNo + "인 게시물은 "
+							+ "존재하지 않습니다.\n다시 입력해주세요.");
+			}
+		}while(!isExist);
 		
 	}
 
@@ -114,6 +130,11 @@ public class BoardMain {
 	private void checkBoard() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public static void main(String[] args) {
+		BoardMain brdObj = new BoardMain();
+		brdObj.start();
 	}
 	
 	
