@@ -30,7 +30,7 @@ public class UdpClient {
 			
 			InetAddress serverAddr = InetAddress.getByName("192.168.145.13");
 			dp = new DatagramPacket(msg, 1, serverAddr, 8887);
-			// msg(+뫃든데이터) => 바이트 배열, 테스트니까?1바이트만 보낼게(다보내려면msg.length),데이터세팅 초기화-length만큼 저장할 수 있도록
+			// msg(+모든데이터) => 바이트 배열, 테스트니까?1바이트만 보낼게(다보내려면msg.length),데이터세팅 초기화-length만큼 저장할 수 있도록
 			ds.send(dp);
 			
 			dp = new DatagramPacket(msg, msg.length);

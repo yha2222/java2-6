@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import me.board.service.BoardServiceImpl;
 import me.board.service.IBoardService;
+import me.board.vo.BoardVO;
 
 /*
  	위의 테이블을 작성하고 게시판을 관리하는
@@ -97,7 +98,8 @@ public class BoardMain {
 	}
 
 	private void deleteBoard() {
-		// TODO Auto-generated method stub
+		System.out.println();
+		
 		
 	}
 
@@ -120,6 +122,26 @@ public class BoardMain {
 			}
 		}while(!isExist);
 		
+		System.out.println("게시물 제목");
+		String brdTitle = scan.next();
+		
+		System.out.println("게시물 작성자");
+		String brdWriter = scan.next();
+		
+		scan.nextLine();
+		
+		System.out.println("게시물 내용");
+		String brdCont = scan.nextLine();
+		
+		BoardVO bv = new BoardVO(brdNo, brdTitle, brdWriter, brdCont);
+		
+		int cnt = brdService.modifyBoard(bv);
+		
+		if(cnt > 0) {
+			System.out.println(brdNo + "번 게시물 정보 수정 성공");
+		}else {
+			System.out.println(brdNo + "번 게시물 정보 수정 실패");
+		}
 	}
 
 	private void uploadBoard() {
@@ -128,7 +150,7 @@ public class BoardMain {
 	}
 
 	private void checkBoard() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	
